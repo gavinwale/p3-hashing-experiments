@@ -27,6 +27,7 @@ public abstract class Hashtable<T> {
         } else {
             table[index].incrementFrequencyCount();
         }
+        inserts++;
     }
 
     protected HashObject<T> search(Object key) {

@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 
 
@@ -9,6 +11,8 @@ public class HashtableTest {
         //TwinPrimeGenerator tpg = new TwinPrimeGenerator();
         int highTwinPrime = TwinPrimeGenerator.generateTwinPrime(95500, 96000);
         int lowTwinPrime = highTwinPrime - 2;
+
+        String inputType;
 
         int debugLevel = 0;
 
@@ -31,6 +35,7 @@ public class HashtableTest {
                     linHashtable1.insert(new HashObject<Integer>(randomNumber));
                     dbHashtable1.insert(new HashObject<Integer>(randomNumber));
                 }
+                inputType = "Integer";
                 break;
             case 2:
                 LinearProbing<Long> linHashtable2 = new LinearProbing<Long>(highTwinPrime, loadFactor);
@@ -45,6 +50,7 @@ public class HashtableTest {
                     dbHashtable2.insert(new HashObject<Date>(date));
 
                 }
+                inputType = "Long";
                 break;
             case 3:
                 LinearProbing<String> linHashtable3 = new LinearProbing<String>(highTwinPrime, loadFactor);
@@ -59,13 +65,43 @@ public class HashtableTest {
                     linHashtable3.insert(new HashObject<String>(nextWord));
                     dbHashtable3.insert(new HashObject<String>(nextWord));
                 }
+                inputType = "word-list";
                 break;
 
             default:
                 break;
-                
+
         }
 
+    }
+
+    public static String usage() {
+        return "Usage:\njava HashtableTest <dataSource> <loadFactor> [<debugLevel>]";
+    }
+
+    public static void debug0(Hashtable<?> linear, Hashtable<?> dbl, String inputType) {
+        System.out.println("HashtableTest: Found a twin prime for table capacity: " + linear.capacity);
+        System.out.println("HashtableTest: Input: " + inputType);
+    }
+
+    public void dumpToFile(String fileName, Hashtable<?> hashtable) {
+        PrintWriter out;
+        try {
+            out = new PrintWriter(fileName);
+
+            for (int i = 0; i < hashtable.size(); i++) {
+
+                out.println();
+
+            }
+
+
+
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        
 
 
     }
