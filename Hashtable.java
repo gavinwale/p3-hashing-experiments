@@ -5,6 +5,7 @@ public abstract class Hashtable<T> {
     protected HashObject<T>[] table;
     protected int size;
     protected double loadFactor;
+    protected int inserts;
 
 
     public Hashtable(int capacity, double loadFactor) {
@@ -57,6 +58,10 @@ public abstract class Hashtable<T> {
             return removed;
         }
         return null;
+    }
+
+    protected double getCurrentLoadFactor() {
+        return (double) inserts / (double) capacity;
     }
 
     public int size() {
