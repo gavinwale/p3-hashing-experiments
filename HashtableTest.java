@@ -10,7 +10,6 @@ public class HashtableTest {
 
         //TwinPrimeGenerator tpg = new TwinPrimeGenerator();
         int highTwinPrime = TwinPrimeGenerator.generateTwinPrime(95500, 96000);
-        int lowTwinPrime = highTwinPrime - 2;
 
         String inputType;
 
@@ -42,13 +41,11 @@ public class HashtableTest {
                 DoubleHashing<Long> dbHashtable2 = new DoubleHashing<Long>(highTwinPrime, loadFactor);
                 long current = new Date().getTime();
 
-
                 while (linHashtable2.getCurrentLoadFactor() < loadFactor) {
                     current += 1000;
                     Date date = new Date(current);
                     linHashtable2.insert(new HashObject<Date>(date));
                     dbHashtable2.insert(new HashObject<Date>(date));
-
                 }
                 inputType = "Long";
                 break;
@@ -60,7 +57,6 @@ public class HashtableTest {
                 String nextWord;
 
                 while (linHashtable3.getCurrentLoadFactor() < loadFactor && scan.hasNextLine()) {
-
                     nextWord = scan.nextLine();
                     linHashtable3.insert(new HashObject<String>(nextWord));
                     dbHashtable3.insert(new HashObject<String>(nextWord));
@@ -89,9 +85,9 @@ public class HashtableTest {
         try {
             out = new PrintWriter(fileName);
 
-            for (int i = 0; i < hashtable.size(); i++) {
+            for (int i = 0; i <= hashtable.size(); i++) {
 
-                out.println();
+                out.println(hashtable.table[i].toString());
 
             }
 
