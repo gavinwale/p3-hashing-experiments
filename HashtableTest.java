@@ -76,8 +76,20 @@ public class HashtableTest {
     }
 
     public static void debug0(Hashtable<?> linear, Hashtable<?> dbl, String inputType) {
+        double avgLinProbes = (double) linear.totalProbes / (double) linear.inserts;
+        double avgDblProbes = (double) dbl.totalProbes / (double) dbl.inserts;
+
         System.out.println("HashtableTest: Found a twin prime for table capacity: " + linear.capacity);
-        System.out.println("HashtableTest: Input: " + inputType);
+        System.out.println("HashtableTest: Input: " + inputType + "Loadfactor: " + linear.loadFactor);
+        System.out.println("\tUsing Linear Probing");
+        System.out.println("HashtableTest: size of hash table is " + linear.size);
+        System.out.println("\tInserted " + linear.inserts + " elements, of which " + linear.totalDupes + " were duplicates");
+        System.out.println("\tAvg. no. of probes = " + avgLinProbes);
+        System.out.println();
+        System.out.println("\tUsing Double Hashing");
+        System.out.println("HashtableTest: size of hash table is " + dbl.size);
+        System.out.println("\tInserted " + dbl.inserts + " elements, of which " + dbl.totalDupes + " were duplicates");
+        System.out.println("\tAvg. no. of probes = " + avgDblProbes);
     }
 
     public void dumpToFile(String fileName, Hashtable<?> hashtable) {
