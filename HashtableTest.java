@@ -8,16 +8,19 @@ public class HashtableTest {
 
     public static void main(String[] args) throws Exception {
 
-        //TwinPrimeGenerator tpg = new TwinPrimeGenerator();
         int highTwinPrime = TwinPrimeGenerator.generateTwinPrime(95500, 96000);
 
         String inputType;
 
         int debugLevel = 0;
 
-        if (args.length == 3) debugLevel = Integer.parseInt(args[2]);
+        if (args.length == 3) {
+            debugLevel = Integer.parseInt(args[2]);
+        }
 
-        if (debugLevel < 0 || debugLevel > 2) throw new IllegalArgumentException("Debug level must be between 0 and 2");
+        if (debugLevel < 0 || debugLevel > 2) {
+            throw new IllegalArgumentException("Debug level must be between 0 and 2");
+        }
 
         double loadFactor = Double.parseDouble(args[1]);
 
@@ -35,6 +38,7 @@ public class HashtableTest {
                     dbHashtable1.insert(new HashObject<Integer>(randomNumber));
                 }
                 inputType = "Integer";
+                debug0(linHashtable1, dbHashtable1, inputType);
                 break;
             case 2:
                 LinearProbing<Long> linHashtable2 = new LinearProbing<Long>(highTwinPrime, loadFactor);
@@ -48,6 +52,7 @@ public class HashtableTest {
                     dbHashtable2.insert(new HashObject<Date>(date));
                 }
                 inputType = "Long";
+                debug0(linHashtable2, dbHashtable2, inputType);
                 break;
             case 3:
                 LinearProbing<String> linHashtable3 = new LinearProbing<String>(highTwinPrime, loadFactor);
@@ -61,7 +66,8 @@ public class HashtableTest {
                     linHashtable3.insert(new HashObject<String>(nextWord));
                     dbHashtable3.insert(new HashObject<String>(nextWord));
                 }
-                inputType = "word-list";
+                inputType = "Word-List";
+                debug0(linHashtable3, dbHashtable3, inputType);
                 break;
 
             default:
@@ -80,7 +86,7 @@ public class HashtableTest {
         double avgDblProbes = (double) dbl.totalProbes / (double) dbl.inserts;
 
         System.out.println("HashtableTest: Found a twin prime for table capacity: " + linear.capacity);
-        System.out.println("HashtableTest: Input: " + inputType + "Loadfactor: " + linear.loadFactor);
+        System.out.println("HashtableTest: Input: " + inputType + "   Loadfactor: " + linear.loadFactor);
         System.out.println("\tUsing Linear Probing");
         System.out.println("HashtableTest: size of hash table is " + linear.size);
         System.out.println("\tInserted " + linear.inserts + " elements, of which " + linear.totalDupes + " were duplicates");
