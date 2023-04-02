@@ -38,7 +38,15 @@ public class HashtableTest {
                     dbHashtable1.insert(new HashObject<Integer>(randomNumber));
                 }
                 inputType = "Integer";
-                debug0(linHashtable1, dbHashtable1, inputType);
+                if (debugLevel == 0) {
+                    debug0(linHashtable1, dbHashtable1, inputType);
+                } else if (debugLevel == 1) {
+                    String fileNameLin = ("linear-" + loadFactor);
+                    String fileNameDbl = ("double-" + loadFactor);
+                    debug1(linHashtable1, dbHashtable1, inputType);
+                    dumpToFile(fileNameLin, linHashtable1);
+                    dumpToFile(fileNameDbl, dbHashtable1);
+                }
                 break;
             case 2:
                 LinearProbing<Long> linHashtable2 = new LinearProbing<Long>(highTwinPrime, loadFactor);
@@ -56,7 +64,11 @@ public class HashtableTest {
                 if (debugLevel == 0) {
                     debug0(linHashtable2, dbHashtable2, inputType);
                 } else if (debugLevel == 1) {
+                    String fileNameLin = ("linear-" + loadFactor);
+                    String fileNameDbl = ("double-" + loadFactor);
                     debug1(linHashtable2, dbHashtable2, inputType);
+                    dumpToFile(fileNameLin, linHashtable2);
+                    dumpToFile(fileNameDbl, dbHashtable2);
                 }
 
                 
@@ -74,7 +86,15 @@ public class HashtableTest {
                     dbHashtable3.insert(new HashObject<String>(nextWord));
                 }
                 inputType = "Word-List";
-                debug0(linHashtable3, dbHashtable3, inputType);
+                if (debugLevel == 0) {
+                    debug0(linHashtable3, dbHashtable3, inputType);
+                } else if (debugLevel == 1) {
+                    String fileNameLin = ("linear-" + loadFactor);
+                    String fileNameDbl = ("double-" + loadFactor);
+                    debug1(linHashtable3, dbHashtable3, inputType);
+                    dumpToFile(fileNameLin, linHashtable3);
+                    dumpToFile(fileNameDbl, dbHashtable3);
+                }
                 break;
 
             default:
@@ -126,7 +146,7 @@ public class HashtableTest {
         System.out.println("HashtableTest: Saved dump of hash table");
     }
 
-    public void dumpToFile(String fileName, Hashtable<?> hashtable) {
+    public static void dumpToFile(String fileName, Hashtable<?> hashtable) {
         PrintWriter out;
         try {
             out = new PrintWriter(fileName);
