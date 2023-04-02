@@ -1,8 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.*;
-
 
 public class HashtableTest {
 
@@ -52,7 +52,14 @@ public class HashtableTest {
                     dbHashtable2.insert(new HashObject<Date>(date));
                 }
                 inputType = "Long";
-                debug0(linHashtable2, dbHashtable2, inputType);
+
+                if (debugLevel == 0) {
+                    debug0(linHashtable2, dbHashtable2, inputType);
+                } else if (debugLevel == 1) {
+                    debug1(linHashtable2, dbHashtable2, inputType);
+                }
+
+                
                 break;
             case 3:
                 LinearProbing<String> linHashtable3 = new LinearProbing<String>(highTwinPrime, loadFactor);
@@ -82,42 +89,54 @@ public class HashtableTest {
     }
 
     public static void debug0(Hashtable<?> linear, Hashtable<?> dbl, String inputType) {
-        double avgLinProbes = (double) linear.totalProbes / (double) linear.inserts;
-        double avgDblProbes = (double) dbl.totalProbes / (double) dbl.inserts;
+        double avgLinProbes = 1 + (double) linear.totalProbes / (double) linear.inserts;
+        double avgDblProbes = 1 + (double) dbl.totalProbes / (double) dbl.inserts;
+        final DecimalFormat df = new DecimalFormat("0.00");
 
         System.out.println("HashtableTest: Found a twin prime for table capacity: " + linear.capacity);
-        System.out.println("HashtableTest: Input: " + inputType + "   Loadfactor: " + linear.loadFactor);
+        System.out.println("HashtableTest: Input: " + inputType + "   Loadfactor: " + df.format(linear.loadFactor));
         System.out.println("\tUsing Linear Probing");
-        System.out.println("HashtableTest: size of hash table is " + linear.size);
+        System.out.println("HashtableTest: size of hash table is " + linear.inserts);
         System.out.println("\tInserted " + linear.inserts + " elements, of which " + linear.totalDupes + " were duplicates");
-        System.out.println("\tAvg. no. of probes = " + avgLinProbes);
+        System.out.println("\tAvg. no. of probes = " + df.format(avgLinProbes));
         System.out.println();
         System.out.println("\tUsing Double Hashing");
-        System.out.println("HashtableTest: size of hash table is " + dbl.size);
+        System.out.println("HashtableTest: size of hash table is " + dbl.inserts);
         System.out.println("\tInserted " + dbl.inserts + " elements, of which " + dbl.totalDupes + " were duplicates");
-        System.out.println("\tAvg. no. of probes = " + avgDblProbes);
+        System.out.println("\tAvg. no. of probes = " + df.format(avgDblProbes));
+    }
+
+    public static void debug1(Hashtable<?> linear, Hashtable<?> dbl, String inputType) {
+        double avgLinProbes = 1 + (double) linear.totalProbes / (double) linear.inserts;
+        double avgDblProbes = 1 + (double) dbl.totalProbes / (double) dbl.inserts;
+        final DecimalFormat df = new DecimalFormat("0.00");
+
+        System.out.println("HashtableTest: Found a twin prime for table capacity: " + linear.capacity);
+        System.out.println("HashtableTest: Input: " + inputType + "   Loadfactor: " + df.format(linear.loadFactor));
+        System.out.println("\tUsing Linear Probing");
+        System.out.println("HashtableTest: size of hash table is " + linear.inserts);
+        System.out.println("\tInserted " + linear.inserts + " elements, of which " + linear.totalDupes + " were duplicates");
+        System.out.println("\tAvg. no. of probes = " + df.format(avgLinProbes));
+        System.out.println("HashtableTest: Saved dump of hash table");
+        System.out.println();
+        System.out.println("\tUsing Double Hashing");
+        System.out.println("HashtableTest: size of hash table is " + dbl.inserts);
+        System.out.println("\tInserted " + dbl.inserts + " elements, of which " + dbl.totalDupes + " were duplicates");
+        System.out.println("\tAvg. no. of probes = " + df.format(avgDblProbes));
+        System.out.println("HashtableTest: Saved dump of hash table");
     }
 
     public void dumpToFile(String fileName, Hashtable<?> hashtable) {
         PrintWriter out;
         try {
             out = new PrintWriter(fileName);
-
-            for (int i = 0; i <= hashtable.size(); i++) {
-
+            for (int i = 0; i <= hashtable.inserts; i++) {
                 out.println(hashtable.table[i].toString());
-
             }
-
-
-
             out.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        
-
-
     }
 
 }

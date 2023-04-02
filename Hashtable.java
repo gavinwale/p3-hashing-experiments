@@ -3,18 +3,17 @@ public abstract class Hashtable<T> {
 
     protected int capacity;
     protected HashObject<T>[] table;
-    protected int size;
     protected double loadFactor;
     protected int inserts = 0;
     protected int totalDupes = 0;
     protected int totalProbes = 0;
+    protected int totalObjects = 0;
 
 
     public Hashtable(int capacity, double loadFactor) {
         this.capacity = capacity;
         this.loadFactor = loadFactor;
         table = new HashObject[capacity];
-        this.size = 0;
     }
 
     protected void insert(Object key) {
@@ -22,7 +21,6 @@ public abstract class Hashtable<T> {
         int index = hash(key, probe);
         while (table[index] != null && !table[index].getKey().equals(key)) {
             probe++;
-            totalProbes++;
             index = hash(key, probe);
         }
         if (table[index] == null) {
@@ -32,6 +30,7 @@ public abstract class Hashtable<T> {
             totalDupes++;
         }
         inserts++;
+        totalProbes += probe;
     }
 
     // protected HashObject<T> search(Object key) {
@@ -67,14 +66,6 @@ public abstract class Hashtable<T> {
 
     protected double getCurrentLoadFactor() {
         return (double) inserts / (double) capacity;
-    }
-
-    public int size() {
-        return size;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     protected int positiveMod (int dividend, int divisor) {

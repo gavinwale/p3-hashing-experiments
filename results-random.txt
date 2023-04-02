@@ -1,0 +1,99 @@
+
+--------------------------------------------------------------------------------
+HashtableTest: Found a twin prime for table capacity: 95791
+HashtableTest: Input: Integer   Loadfactor: 0.50
+	Using Linear Probing
+HashtableTest: size of hash table is 47896
+	Inserted 47896 elements, of which 0 were duplicates
+	Avg. no. of probes = 1.50
+
+	Using Double Hashing
+HashtableTest: size of hash table is 47896
+	Inserted 47896 elements, of which 0 were duplicates
+	Avg. no. of probes = 1.38
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+HashtableTest: Found a twin prime for table capacity: 95791
+HashtableTest: Input: Integer   Loadfactor: 0.60
+	Using Linear Probing
+HashtableTest: size of hash table is 57475
+	Inserted 57475 elements, of which 0 were duplicates
+	Avg. no. of probes = 1.75
+
+	Using Double Hashing
+HashtableTest: size of hash table is 57475
+	Inserted 57475 elements, of which 0 were duplicates
+	Avg. no. of probes = 1.52
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+HashtableTest: Found a twin prime for table capacity: 95791
+HashtableTest: Input: Integer   Loadfactor: 0.70
+	Using Linear Probing
+HashtableTest: size of hash table is 67054
+	Inserted 67054 elements, of which 0 were duplicates
+	Avg. no. of probes = 2.18
+
+	Using Double Hashing
+HashtableTest: size of hash table is 67054
+	Inserted 67054 elements, of which 0 were duplicates
+	Avg. no. of probes = 1.72
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+HashtableTest: Found a twin prime for table capacity: 95791
+HashtableTest: Input: Integer   Loadfactor: 0.80
+	Using Linear Probing
+HashtableTest: size of hash table is 76633
+	Inserted 76633 elements, of which 0 were duplicates
+	Avg. no. of probes = 3.03
+
+	Using Double Hashing
+HashtableTest: size of hash table is 76633
+	Inserted 76633 elements, of which 0 were duplicates
+	Avg. no. of probes = 2.01
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+HashtableTest: Found a twin prime for table capacity: 95791
+HashtableTest: Input: Integer   Loadfactor: 0.90
+	Using Linear Probing
+HashtableTest: size of hash table is 86212
+	Inserted 86212 elements, of which 0 were duplicates
+	Avg. no. of probes = 5.46
+
+	Using Double Hashing
+HashtableTest: size of hash table is 86212
+	Inserted 86212 elements, of which 0 were duplicates
+	Avg. no. of probes = 2.56
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+HashtableTest: Found a twin prime for table capacity: 95791
+HashtableTest: Input: Integer   Loadfactor: 0.95
+	Using Linear Probing
+HashtableTest: size of hash table is 91002
+	Inserted 91002 elements, of which 0 were duplicates
+	Avg. no. of probes = 10.26
+
+	Using Double Hashing
+HashtableTest: size of hash table is 91002
+	Inserted 91002 elements, of which 0 were duplicates
+	Avg. no. of probes = 3.15
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+HashtableTest: Found a twin prime for table capacity: 95791
+HashtableTest: Input: Integer   Loadfactor: 0.99
+	Using Linear Probing
+HashtableTest: size of hash table is 94834
+	Inserted 94834 elements, of which 0 were duplicates
+	Avg. no. of probes = 54.49
+
+	Using Double Hashing
+HashtableTest: size of hash table is 94834
+	Inserted 94834 elements, of which 0 were duplicates
+	Avg. no. of probes = 4.65
+--------------------------------------------------------------------------------
+
