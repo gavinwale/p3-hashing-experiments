@@ -117,12 +117,12 @@ public class HashtableTest {
         System.out.println("HashtableTest: Input: " + inputType + "   Loadfactor: " + df.format(linear.loadFactor));
         System.out.println("\tUsing Linear Probing");
         System.out.println("HashtableTest: size of hash table is " + linear.inserts);
-        System.out.println("\tInserted " + linear.inserts + " elements, of which " + linear.totalDupes + " were duplicates");
+        System.out.println("\tInserted " + linear.getTotalInserted() + " elements, of which " + linear.totalDupes + " were duplicates");
         System.out.println("\tAvg. no. of probes = " + df.format(avgLinProbes));
         System.out.println();
         System.out.println("\tUsing Double Hashing");
         System.out.println("HashtableTest: size of hash table is " + dbl.inserts);
-        System.out.println("\tInserted " + dbl.inserts + " elements, of which " + dbl.totalDupes + " were duplicates");
+        System.out.println("\tInserted " + dbl.getTotalInserted() + " elements, of which " + dbl.totalDupes + " were duplicates");
         System.out.println("\tAvg. no. of probes = " + df.format(avgDblProbes));
     }
 
@@ -135,13 +135,13 @@ public class HashtableTest {
         System.out.println("HashtableTest: Input: " + inputType + "   Loadfactor: " + df.format(linear.loadFactor));
         System.out.println("\tUsing Linear Probing");
         System.out.println("HashtableTest: size of hash table is " + linear.inserts);
-        System.out.println("\tInserted " + linear.inserts + " elements, of which " + linear.totalDupes + " were duplicates");
+        System.out.println("\tInserted " + linear.getTotalInserted() + " elements, of which " + linear.totalDupes + " were duplicates");
         System.out.println("\tAvg. no. of probes = " + df.format(avgLinProbes));
         System.out.println("HashtableTest: Saved dump of hash table");
         System.out.println();
         System.out.println("\tUsing Double Hashing");
         System.out.println("HashtableTest: size of hash table is " + dbl.inserts);
-        System.out.println("\tInserted " + dbl.inserts + " elements, of which " + dbl.totalDupes + " were duplicates");
+        System.out.println("\tInserted " + dbl.getTotalInserted() + " elements, of which " + dbl.totalDupes + " were duplicates");
         System.out.println("\tAvg. no. of probes = " + df.format(avgDblProbes));
         System.out.println("HashtableTest: Saved dump of hash table");
     }

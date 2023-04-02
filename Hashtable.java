@@ -9,7 +9,6 @@ public abstract class Hashtable<T> {
     protected int totalProbes = 0;
     protected int totalObjects = 0;
 
-
     public Hashtable(int capacity, double loadFactor) {
         this.capacity = capacity;
         this.loadFactor = loadFactor;
@@ -19,50 +18,36 @@ public abstract class Hashtable<T> {
     protected void insert(Object key) {
         int probe = 0;
         int index = hash(key, probe);
-        while (table[index] != null && !table[index].getKey().equals(key)) {
-            probe++;
-            index = hash(key, probe);
+
+        // If the spot in the table has something ANDAND what is in the table does not equal what we are trying to insert
+        while (table[index] != null) {
+
+            if (!table[index].getKey().equals(key)) {
+                probe++;
+                index = hash(key, probe);
+            } else if (table[index].getKey().equals(key)) {
+                totalDupes++;
+            }
         }
-        if (table[index] == null) {
-            table[index] = new HashObject(key);
-        } else {
-            table[index].incrementFrequencyCount();
-            totalDupes++;
-        }
+
+        table[index] = new HashObject(key);
         inserts++;
-        totalProbes += probe;
+
+        // if (table[index] == null) {
+            
+        // } else {
+        //     table[index].incrementFrequencyCount();
+        //     totalDupes++;
+        // }
+        // inserts++;
+        // totalProbes += probe;
     }
 
-    // protected HashObject<T> search(Object key) {
-    //     int probe = 0;
-    //     int index = hash(key, probe);
-    //     while (table[index] != null) {
-    //         if (table[index].getKey().equals(key)) {
-    //             return table[index];
-    //         }
-    //         probe++;
-    //         index = hash(key, probe);
-    //     }
-    //     return null;
-    // }
+    protected int getTotalInserted() {
+        return totalDupes + inserts;
+    }
 
     protected abstract int hash (Object element, int probe);
-
-    // public HashObject<T> remove(Object key) {
-    //     int probeCount = 0;
-    //     int index = hash(key, probeCount);
-    //     while (table[index] != null && !table[index].getKey().equals(key)) {
-    //         probeCount++;
-    //         index = hash(key, probeCount);
-    //     }
-    //     if (table[index] != null) {
-    //         HashObject<T> removed = table[index];
-    //         table[index] = null;
-    //         size--;
-    //         return removed;
-    //     }
-    //     return null;
-    // }
 
     protected double getCurrentLoadFactor() {
         return (double) inserts / (double) capacity;
@@ -75,8 +60,4 @@ public abstract class Hashtable<T> {
         }
         return quotient;
     }
-
-    
-
-    
 }
