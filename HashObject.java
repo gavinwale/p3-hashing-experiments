@@ -65,14 +65,22 @@ public class HashObject<T> {
 
     @Override
     public String toString() {
-        return key + " " + (frequencyCount - 1) + " " + probeCount;
+        return key + " " + frequencyCount + " " + probeCount;
     }
+
+    // @Override
+    // public boolean equals(Object o) {
+    //     if (o == this) return true;
+    //     if (!(o instanceof HashObject)) return false;
+    //     HashObject<?> o2 = (HashObject<?>)o;
+    //     return o2.key.equals(this.key);
+    // }
 
     @Override
     public boolean equals(Object o) {
-        if (o == this) return true;
-        if (!(o instanceof HashObject)) return false;
-        HashObject<?> o2 = (HashObject<?>)o;
-        return o2.key.equals(this.key);
+        if (this.getClass().equals(o.getClass())) {
+            return (this.getKey().equals(((HashObject<?>)o).getKey()));
+        }
+        return false;
     }
 }

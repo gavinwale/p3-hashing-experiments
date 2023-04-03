@@ -24,7 +24,7 @@ HashtableTest: size of hash table is 57475
 	Using Double Hashing
 HashtableTest: size of hash table is 57475
 	Inserted 57475 elements, of which 0 were duplicates
-	Avg. no. of probes = 1.53
+	Avg. no. of probes = 1.52
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ HashtableTest: size of hash table is 91002
 	Using Double Hashing
 HashtableTest: size of hash table is 91002
 	Inserted 91002 elements, of which 0 were duplicates
-	Avg. no. of probes = 3.14
+	Avg. no. of probes = 3.15
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
@@ -94,6 +94,6 @@ HashtableTest: size of hash table is 94834
 	Using Double Hashing
 HashtableTest: size of hash table is 94834
 	Inserted 94834 elements, of which 0 were duplicates
-	Avg. no. of probes = 4.65
+	Avg. no. of probes = 4.64
 --------------------------------------------------------------------------------
 

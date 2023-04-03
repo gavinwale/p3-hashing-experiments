@@ -26,6 +26,7 @@ public class HashtableTest {
 
         switch(Integer.parseInt(args[0])) {
 
+            // Random integers
             case 1:
                 LinearProbing<Integer> linHashtable1 = new LinearProbing<Integer>(highTwinPrime, loadFactor);
                 DoubleHashing<Integer> dbHashtable1 = new DoubleHashing<Integer>(highTwinPrime, loadFactor);
@@ -48,6 +49,8 @@ public class HashtableTest {
                     dumpToFile(fileNameDbl, dbHashtable1);
                 }
                 break;
+
+            // Random longs
             case 2:
                 LinearProbing<Long> linHashtable2 = new LinearProbing<Long>(highTwinPrime, loadFactor);
                 DoubleHashing<Long> dbHashtable2 = new DoubleHashing<Long>(highTwinPrime, loadFactor);
@@ -73,10 +76,12 @@ public class HashtableTest {
 
                 
                 break;
+
+            // List of words from hard-coded input file
             case 3:
                 LinearProbing<String> linHashtable3 = new LinearProbing<String>(highTwinPrime, loadFactor);
                 DoubleHashing<String> dbHashtable3 = new DoubleHashing<String>(highTwinPrime, loadFactor);
-                File file = new File("word-list");
+                File file = new File("word-test-list");
                 Scanner scan = new Scanner(file);
                 String nextWord;
 
@@ -85,16 +90,21 @@ public class HashtableTest {
                     linHashtable3.insert(new HashObject<String>(nextWord));
                     dbHashtable3.insert(new HashObject<String>(nextWord));
                 }
+
+                
                 inputType = "Word-List";
                 if (debugLevel == 0) {
+                    
                     debug0(linHashtable3, dbHashtable3, inputType);
                 } else if (debugLevel == 1) {
+                    
                     String fileNameLin = ("linear-" + loadFactor);
                     String fileNameDbl = ("double-" + loadFactor);
                     debug1(linHashtable3, dbHashtable3, inputType);
                     dumpToFile(fileNameLin, linHashtable3);
                     dumpToFile(fileNameDbl, dbHashtable3);
-                }
+                } 
+                
                 break;
 
             default:
@@ -151,7 +161,9 @@ public class HashtableTest {
         try {
             out = new PrintWriter(fileName);
             for (int i = 0; i <= hashtable.inserts; i++) {
-                out.println(hashtable.table[i].toString());
+                if (hashtable.table[i] != null) {
+                    out.println(hashtable.table[i].toString());
+                }
             }
             out.close();
         } catch (FileNotFoundException e) {

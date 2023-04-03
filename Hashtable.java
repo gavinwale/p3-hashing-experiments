@@ -15,32 +15,56 @@ public abstract class Hashtable<T> {
         table = new HashObject[capacity];
     }
 
-    protected void insert(Object key) {
-        int probe = 0;
+    // public int insert(Object hashObject) {
+    //     //HashObject userObject = new HashObject(hashObject);
+    //     int i = 0;
+    //     int index;
+
+    //     while(i != capacity) {
+    //         index = hash(hashObject, i); //calling hash function
+    //         if(table[index] == null) { //inserting object if null
+    //             i++;
+    //             table[index] = hashObject;
+    //             hashObject.incrementProbeCount(i);
+    //             inserts++;
+    //             totalProbes += i;
+    //             return index;
+    //         } else { //found duplicate
+    //             if(table[index].equals(hashObject)){
+    //                 table[index].incrementFrequencyCount();
+    //                 totalDupes++;
+    //                 return -1;
+    //             }
+    //             i++;
+    //         }
+    //     }
+    //     return 0;
+    // }
+
+
+
+    protected int insert(HashObject key) {
+        int probe = 1;
         int index = hash(key, probe);
 
-        // If the spot in the table has something ANDAND what is in the table does not equal what we are trying to insert
         while (table[index] != null) {
 
-            if (!table[index].getKey().equals(key)) {
-                probe++;
-                index = hash(key, probe);
-            } else if (table[index].getKey().equals(key)) {
+            if (table[index].getKey().equals(key)) {
                 totalDupes++;
+                table[index].incrementFrequencyCount();
+                return -1;
+            } else if (!table[index].getKey().equals(key)) {
+                totalProbes++;
+                probe++;
+                table[index].incrementProbeCount();
+                index = hash(key,probe);
             }
+
         }
 
         table[index] = new HashObject(key);
         inserts++;
-
-        // if (table[index] == null) {
-            
-        // } else {
-        //     table[index].incrementFrequencyCount();
-        //     totalDupes++;
-        // }
-        // inserts++;
-        // totalProbes += probe;
+        return 1;
     }
 
     protected int getTotalInserted() {
