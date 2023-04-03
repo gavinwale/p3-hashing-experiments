@@ -62,9 +62,9 @@ public class HashtableTest {
                 if (debugLevel == 0) {
                     debug0(linHashtable1, dbHashtable1, inputType, total1);
                 } else if (debugLevel == 1) {
-                    String fileNameLin = ("linear-" + loadFactor);
-                    String fileNameDbl = ("double-" + loadFactor);
-                    debug1(linHashtable1, dbHashtable1, inputType, total1);
+                    String fileNameLin = ("linear-dump.txt");
+                    String fileNameDbl = ("double-dump.txt");
+                    debug1(linHashtable1, dbHashtable1, inputType, total1, 0);
                     dumpToFile(fileNameLin, linHashtable1);
                     dumpToFile(fileNameDbl, dbHashtable1);
                 } else if (debugLevel == 2) {
@@ -92,9 +92,9 @@ public class HashtableTest {
                 if (debugLevel == 0) {
                     debug0(linHashtable2, dbHashtable2, inputType, total2);
                 } else if (debugLevel == 1) {
-                    String fileNameLin = ("linear-" + loadFactor);
-                    String fileNameDbl = ("double-" + loadFactor);
-                    debug1(linHashtable2, dbHashtable2, inputType, total2);
+                    String fileNameLin = ("linear-dump.txt");
+                    String fileNameDbl = ("double-dump.txt");
+                    debug1(linHashtable2, dbHashtable2, inputType, total2, 0);
                     dumpToFile(fileNameLin, linHashtable2);
                     dumpToFile(fileNameDbl, dbHashtable2);
                 } else if (debugLevel == 2) {
@@ -112,43 +112,50 @@ public class HashtableTest {
             case 3:
                 LinearProbing<String> linHashtable3 = new LinearProbing<String>(highTwinPrime, loadFactor);
                 DoubleHashing<String> dbHashtable3 = new DoubleHashing<String>(highTwinPrime, loadFactor);
-                // File file = new File("word-test-list");
-                // Scanner scan = new Scanner(file);
-                // String nextWord;
-
-                // while (linHashtable3.getCurrentLoadFactor() < loadFactor && scan.hasNextLine()) {
-                //     nextWord = scan.nextLine();
-                //     linHashtable3.insert(new HashObject<String>(nextWord));
-                //     dbHashtable3.insert(new HashObject<String>(nextWord));
-                // }
-
+                File file = new File("word-list");
+                Scanner scan = new Scanner(file);
+                String nextWord;
                 int total3 = 0;
-                try {
-                    BufferedReader reader = new BufferedReader(new FileReader("word-list"));
+                int totalDupesForThisCase = 0;
+                int dupeOrOriginal = 0;
 
-                    String newWord;
+                while (linHashtable3.getCurrentLoadFactor() < loadFactor && scan.hasNextLine()) {
+                    nextWord = scan.nextLine();
+                    dupeOrOriginal = linHashtable3.insert(new HashObject<String>(nextWord));
+                    dupeOrOriginal = dbHashtable3.insert(new HashObject<String>(nextWord));
 
-                    while (((newWord = reader.readLine()) != null) && linHashtable3.getCurrentLoadFactor() < loadFactor) {
-                        linHashtable3.insert(new HashObject<String>(newWord));
-                        dbHashtable3.insert(new HashObject<String>(newWord));
-                        total3++;
+                    if (dupeOrOriginal < 0) {
+                        totalDupesForThisCase++;
                     }
-
-                    reader.close();
-                } catch(FileNotFoundException e) {
-                    System.out.println("File not found");
+                    total3++;
                 }
 
                 
+                // try {
+                //     BufferedReader reader = new BufferedReader(new FileReader("word-list"));
+
+                //     String newWord;
+
+                //     while (((newWord = reader.readLine()) != null) && linHashtable3.getCurrentLoadFactor() < loadFactor) {
+                //         linHashtable3.insert(new HashObject<String>(newWord));
+                //         dbHashtable3.insert(new HashObject<String>(newWord));
+                //         total3++;
+                //     }
+
+                //     reader.close();
+                // } catch(FileNotFoundException e) {
+                //     System.out.println("File not found");
+                // }
+
                 inputType = "Word-List";
                 if (debugLevel == 0) {
                     
                     debug0(linHashtable3, dbHashtable3, inputType, total3);
                 } else if (debugLevel == 1) {
                     
-                    String fileNameLin = ("linear-" + loadFactor);
-                    String fileNameDbl = ("double-" + loadFactor);
-                    debug1(linHashtable3, dbHashtable3, inputType, total3);
+                    String fileNameLin = ("linear-dump.txt");
+                    String fileNameDbl = ("double-dump.txt");
+                    debug1(linHashtable3, dbHashtable3, inputType, total3, totalDupesForThisCase);
                     dumpToFile(fileNameLin, linHashtable3);
                     dumpToFile(fileNameDbl, dbHashtable3);
                 } else if (debugLevel == 2) {
@@ -186,7 +193,7 @@ public class HashtableTest {
         System.out.println("\tAvg. no. of probes = " + df.format(avgDblProbes));
     }
 
-    public static void debug1(Hashtable<?> linear, Hashtable<?> dbl, String inputType, int total) {
+    public static void debug1(Hashtable<?> linear, Hashtable<?> dbl, String inputType, int total, int totalDupesForThisCase) {
         double avgLinProbes = 1 + (double) linear.totalProbes / (double) linear.totalInserts;
         double avgDblProbes = 1 + (double) dbl.totalProbes / (double) dbl.totalInserts;
         final DecimalFormat df = new DecimalFormat("0.00");
@@ -195,7 +202,7 @@ public class HashtableTest {
         System.out.println("HashtableTest: Input: " + inputType + "   Loadfactor: " + df.format(linear.loadFactor));
         System.out.println("\tUsing Linear Probing");
         System.out.println("HashtableTest: size of hash table is " + linear.totalInserts);
-        System.out.println("\tInserted " + total + " elements, of which " + linear.totalDupes + " were duplicates");
+        System.out.println("\tInserted " + total + " elements, of which " + totalDupesForThisCase + " were duplicates");
         System.out.println("\tAvg. no. of probes = " + df.format(avgLinProbes));
         System.out.println("HashtableTest: Saved dump of hash table");
         System.out.println();
@@ -212,6 +219,9 @@ public class HashtableTest {
             out = new PrintWriter(fileName);
             for (int i = 0; i <= hashtable.totalInserts; i++) {
                 if (hashtable.table[i] != null) {
+
+                    
+
                     out.println(hashtable.table[i].toString());
                 }
             }

@@ -74,13 +74,13 @@ public class HashObject<T> {
 
     @Override
     public String toString() {
-        return getKey() + " " + duplicateCount + " " + probeCount;
+        return key + " " + duplicateCount + " " + probeCount;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o == this) return true;
-        if (!(o instanceof HashObject)) return false;
+        // if (o == this) return true;
+        // if (!(o instanceof HashObject)) return false;
         HashObject<?> o2 = (HashObject<?>)o;
         return o2.key.equals(this.key);
     }
