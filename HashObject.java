@@ -18,7 +18,7 @@ public class HashObject<T> {
      */
     public HashObject(T key) {
         this.key = key;
-        this.duplicateCount = 0;
+        this.duplicateCount = 1;
         this.probeCount = 0;
     }
 

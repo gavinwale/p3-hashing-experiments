@@ -92,13 +92,13 @@ public abstract class Hashtable<T> {
     // }
 
     protected int getTotalInserted() {
-        return totalDupes + inserts;
+        return totalDupes + totalInserts;
     }
 
     protected abstract int hash (Object element, int probe);
 
     protected double getCurrentLoadFactor() {
-        return (double) inserts / (double) capacity;
+        return (double) totalInserts / (double) capacity;
     }
 
     protected int positiveMod (int dividend, int divisor) {

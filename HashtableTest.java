@@ -72,16 +72,17 @@ public class HashtableTest {
 
             // Random longs
             case 2:
-                LinearProbing<Date> linHashtable2 = new LinearProbing<Date>(highTwinPrime, loadFactor);
-                DoubleHashing<Date> dbHashtable2 = new DoubleHashing<Date>(highTwinPrime, loadFactor);
+                LinearProbing<Long> linHashtable2 = new LinearProbing<Long>(highTwinPrime, loadFactor);
+                DoubleHashing<Long> dbHashtable2 = new DoubleHashing<Long>(highTwinPrime, loadFactor);
                 long current = new Date().getTime();
 
                 int total2 = 0;
                 while (linHashtable2.getCurrentLoadFactor() < loadFactor) {
                     current += 1000;
                     Date date = new Date(current);
-                    linHashtable2.insert(new HashObject<Date>(date));
-                    dbHashtable2.insert(new HashObject<Date>(date));
+                    HashObject obj = new HashObject(date);
+                    linHashtable2.insert(obj);
+                    dbHashtable2.insert(obj);
                     total2++;
                 }
                 inputType = "Long";
@@ -115,7 +116,7 @@ public class HashtableTest {
 
                 int total3 = 0;
                 try {
-                    BufferedReader reader = new BufferedReader(new FileReader("word-test-list"));
+                    BufferedReader reader = new BufferedReader(new FileReader("word-list"));
 
                     String newWord;
 
@@ -157,38 +158,38 @@ public class HashtableTest {
     }
 
     public static void debug0(Hashtable<?> linear, Hashtable<?> dbl, String inputType, int total) {
-        double avgLinProbes = 1 + (double) linear.totalProbes / (double) linear.inserts;
-        double avgDblProbes = 1 + (double) dbl.totalProbes / (double) dbl.inserts;
+        double avgLinProbes = 1 + (double) linear.totalProbes / (double) linear.totalInserts;
+        double avgDblProbes = 1 + (double) dbl.totalProbes / (double) dbl.totalInserts;
         final DecimalFormat df = new DecimalFormat("0.00");
 
         System.out.println("HashtableTest: Found a twin prime for table capacity: " + linear.capacity);
         System.out.println("HashtableTest: Input: " + inputType + "   Loadfactor: " + df.format(linear.loadFactor));
         System.out.println("\tUsing Linear Probing");
-        System.out.println("HashtableTest: size of hash table is " + linear.inserts);
-        System.out.println("\tInserted " + total + " elements, of which " + linear.totalDupes + " were duplicates");
+        System.out.println("HashtableTest: size of hash table is " + linear.totalInserts);
+        System.out.println("\tInserted " + linear.getTotalInserted() + " elements, of which " + linear.totalDupes + " were duplicates");
         System.out.println("\tAvg. no. of probes = " + df.format(avgLinProbes));
         System.out.println();
         System.out.println("\tUsing Double Hashing");
-        System.out.println("HashtableTest: size of hash table is " + dbl.inserts);
+        System.out.println("HashtableTest: size of hash table is " + dbl.totalInserts);
         System.out.println("\tInserted " + dbl.getTotalInserted() + " elements, of which " + dbl.totalDupes + " were duplicates");
         System.out.println("\tAvg. no. of probes = " + df.format(avgDblProbes));
     }
 
     public static void debug1(Hashtable<?> linear, Hashtable<?> dbl, String inputType, int total) {
-        double avgLinProbes = 1 + (double) linear.totalProbes / (double) linear.inserts;
-        double avgDblProbes = 1 + (double) dbl.totalProbes / (double) dbl.inserts;
+        double avgLinProbes = 1 + (double) linear.totalProbes / (double) linear.totalInserts;
+        double avgDblProbes = 1 + (double) dbl.totalProbes / (double) dbl.totalInserts;
         final DecimalFormat df = new DecimalFormat("0.00");
 
         System.out.println("HashtableTest: Found a twin prime for table capacity: " + linear.capacity);
         System.out.println("HashtableTest: Input: " + inputType + "   Loadfactor: " + df.format(linear.loadFactor));
         System.out.println("\tUsing Linear Probing");
-        System.out.println("HashtableTest: size of hash table is " + linear.inserts);
+        System.out.println("HashtableTest: size of hash table is " + linear.totalInserts);
         System.out.println("\tInserted " + total + " elements, of which " + linear.totalDupes + " were duplicates");
         System.out.println("\tAvg. no. of probes = " + df.format(avgLinProbes));
         System.out.println("HashtableTest: Saved dump of hash table");
         System.out.println();
         System.out.println("\tUsing Double Hashing");
-        System.out.println("HashtableTest: size of hash table is " + dbl.inserts);
+        System.out.println("HashtableTest: size of hash table is " + dbl.totalInserts);
         System.out.println("\tInserted " + dbl.getTotalInserted() + " elements, of which " + dbl.totalDupes + " were duplicates");
         System.out.println("\tAvg. no. of probes = " + df.format(avgDblProbes));
         System.out.println("HashtableTest: Saved dump of hash table");
@@ -198,7 +199,7 @@ public class HashtableTest {
         PrintWriter out;
         try {
             out = new PrintWriter(fileName);
-            for (int i = 0; i <= hashtable.inserts; i++) {
+            for (int i = 0; i <= hashtable.totalInserts; i++) {
                 if (hashtable.table[i] != null) {
                     out.println(hashtable.table[i].toString());
                 }
