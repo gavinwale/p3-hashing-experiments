@@ -8,17 +8,17 @@ public class HashObject<T> {
 
     // Class variables
     private T key;
-    private int frequencyCount;
+    private int duplicateCount;
     private int probeCount;
 
     /*
      * Constructor
      * 
-     * @param - K key
+     * @param - T key
      */
     public HashObject(T key) {
         this.key = key;
-        this.frequencyCount = 1;
+        this.duplicateCount = 0;
         this.probeCount = 0;
     }
 
@@ -36,8 +36,8 @@ public class HashObject<T> {
      * 
      * @return - int frequencyCount
      */
-    protected int getFrequencyCount() {
-        return frequencyCount;
+    protected int getDuplicateCount() {
+        return duplicateCount;
     }
 
     /*
@@ -50,10 +50,19 @@ public class HashObject<T> {
     }
 
     /*
+     * Sets the probeCount of the HashObject
+     * 
+     * @param - int i
+     */
+    protected void setProbeCount(int i) {
+        probeCount = i;
+    }
+
+    /*
      * Increments the frequencyCount
      */
-    protected void incrementFrequencyCount() {
-        this.frequencyCount++;
+    protected void incrementDuplicateCount() {
+        this.duplicateCount++;
     }
 
     /*
@@ -65,22 +74,22 @@ public class HashObject<T> {
 
     @Override
     public String toString() {
-        return getKey() + " " + frequencyCount + " " + probeCount;
+        return getKey() + " " + duplicateCount + " " + probeCount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof HashObject)) return false;
+        HashObject<?> o2 = (HashObject<?>)o;
+        return o2.key.equals(this.key);
     }
 
     // @Override
     // public boolean equals(Object o) {
     //     if (o == this) return true;
-    //     if (!(o instanceof HashObject)) return false;
-    //     HashObject<?> o2 = (HashObject<?>)o;
-    //     return o2.key.equals(this.key);
+    //     return false;
     // }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) return true;
-        return false;
-    }
 
     // @Override
     // public boolean equals(Object o) {
