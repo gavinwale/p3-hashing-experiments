@@ -5,14 +5,18 @@ public abstract class Hashtable<T> {
     protected HashObject<T>[] table;
     protected double loadFactor;
     protected int inserts = 0;
-    protected int totalDupes = 0;
-    protected int totalProbes = 0;
+    protected int totalDupes;
+    protected int totalProbes;
     protected int totalObjects = 0;
+    protected int totalInserts;
 
     public Hashtable(int capacity, double loadFactor) {
         this.capacity = capacity;
         this.loadFactor = loadFactor;
         table = new HashObject[capacity];
+        this.totalDupes = 0;
+        this.totalProbes = 0;
+        this.totalInserts = 0;
     }
 
     // public int insert(Object hashObject) {
@@ -43,7 +47,7 @@ public abstract class Hashtable<T> {
 
 
 
-    protected int insert(HashObject key) {
+    protected int insert(HashObject<T> key) {
         int probe = 1;
         int index = hash(key, probe);
 

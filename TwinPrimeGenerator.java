@@ -58,11 +58,5 @@ public class TwinPrimeGenerator {
         return true;
     }
 
-    public static void main(String[] args) {
-        int min = 95500;
-        int max = 96000;
-
-        System.out.println("Twin prime between [" + min + ", " + max + "]: " + generateTwinPrime(min, max));
-    }
 
 }
