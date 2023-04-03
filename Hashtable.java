@@ -19,37 +19,10 @@ public abstract class Hashtable<T> {
         this.totalInserts = 0;
     }
 
-    // public int insert(HashObject<T> hashObject) {
-    //     //HashObject userObject = new HashObject(hashObject);
-    //     int i = 0;
-    //     int index;
-
-    //     while(i != capacity) {
-    //         index = hash(hashObject, i); //calling hash function
-    //         if(table[index] == null) { //inserting object if null
-    //             i++;
-    //             table[index] = hashObject;
-    //             hashObject.incrementProbeCount();
-    //             inserts++;
-    //             totalProbes += i;
-    //             return index;
-    //         } else { //found duplicate
-    //             if(table[index].equals(hashObject)){
-    //                 table[index].incrementFrequencyCount();
-    //                 totalDupes++;
-    //                 return -1;
-    //             }
-    //             i++;
-    //         }
-    //     }
-    //     return 0;
-    // }
     protected int insert(HashObject<T> key) {
         int probe = 0;
         int index = hash(key, probe);
-
         while (table[index] != null) {
-
             if (table[index].getKey().equals(key)) {
                 totalDupes++;
                 table[index].incrementFrequencyCount();
@@ -60,29 +33,11 @@ public abstract class Hashtable<T> {
                 table[index].incrementProbeCount();
                 index = hash(key,probe);
             }
-
         }
-
         table[index] = new HashObject(key);
         inserts++;
         return 1;
     }
-
-    // public void insert(HashObject<T> key) {
-    //     int i = 0;
-    //     int index = 0;
-
-    //     while (i < capacity) {
-    //         index = hash(key, i);
-
-    //         if (index < 0) {
-    //             index += capacity;
-    //         }
-
-    //     }
-
-
-    // }
 
     protected int getTotalInserted() {
         return totalDupes + inserts;
