@@ -57,6 +57,4 @@ public class TwinPrimeGenerator {
         // Gets through everything, is prime!
         return true;
     }
-
-
 }
