@@ -6,14 +6,30 @@ import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.*;
 
+/*
+ * This class contains the main method that runs the experiments on the hash tables
+ *  that have been built. Based on command line arguments, the main method inserts
+ *  either a collection of random ints, longs, or words from a hard-coded text file.
+ *  The insertions are done using both linear probing and double hashing. When the
+ *  program has completed running, differentiation is made between the two methods.
+ * 
+ * @author gavinwale
+ */
 public class HashtableTest {
 
+    /*
+     * Main method that runs the experiments and takes user input from command line arguments
+     * 
+     * @usage - java HashtableTest <dataSource> <loadFactor> [<debugLevel>]
+     */
     public static void main(String[] args) throws Exception {
 
+        // Static call to TwinPrimeGenerator to find the size of the hash table
         int highTwinPrime = TwinPrimeGenerator.generateTwinPrime(95500, 96000);
 
         String inputType;
 
+        // DebugLevel is 0 unless specified otherwise
         int debugLevel = 0;
 
         if (args.length == 3) {
@@ -99,7 +115,7 @@ public class HashtableTest {
 
                 int total3 = 0;
                 try {
-                    BufferedReader reader = new BufferedReader(new FileReader("word-list"));
+                    BufferedReader reader = new BufferedReader(new FileReader("word-test-list"));
 
                     String newWord;
 

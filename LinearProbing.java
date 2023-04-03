@@ -6,7 +6,7 @@ public class LinearProbing<T> extends Hashtable<T> {
 
     @Override
     protected int hash(Object element, int probe) {
-        return (element.hashCode() + probe) % capacity;
+        return positiveMod((element.hashCode() + probe), capacity);
     }
 
 }
