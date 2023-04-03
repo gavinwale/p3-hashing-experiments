@@ -16,6 +16,9 @@ echo
 #put the following in a loop to test load factor of 0.5, 0.6, 0.7, 0.8 and 0.9 for word-list
 
 load=0.5
+
+for load in 0.5 0.6 0.7 0.8 0.9
+do
 debugLevel=1
 
 echo "Running java HashtableTest dataSource = 3 loadFactor = $load "
@@ -40,5 +43,6 @@ else
 	echo "       Check the file diff-double-$load.out for differences"
 fi
 echo
+done
 
 
