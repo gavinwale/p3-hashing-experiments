@@ -62,11 +62,13 @@ public class HashtableTest {
                 if (debugLevel == 0) {
                     debug0(linHashtable1, dbHashtable1, inputType, total1);
                 } else if (debugLevel == 1) {
-                    String fileNameLin = ("linear-dump.txt");
-                    String fileNameDbl = ("double-dump.txt");
+                    String fileNameLin = ("linear-" + loadFactor);
+                    String fileNameDbl = ("double-" + loadFactor);
                     debug1(linHashtable1, dbHashtable1, inputType, total1);
                     dumpToFile(fileNameLin, linHashtable1);
                     dumpToFile(fileNameDbl, dbHashtable1);
+                } else if (debugLevel == 2) {
+                    // make the while loop a function
                 }
                 break;
 
@@ -90,13 +92,17 @@ public class HashtableTest {
                 if (debugLevel == 0) {
                     debug0(linHashtable2, dbHashtable2, inputType, total2);
                 } else if (debugLevel == 1) {
-                    String fileNameLin = ("linear-dump.txt");
-                    String fileNameDbl = ("double-dump.txt");
-                    // String fileNameLin = ("linear-" + loadFactor);
-                    // String fileNameDbl = ("double-" + loadFactor);
+                    String fileNameLin = ("linear-" + loadFactor);
+                    String fileNameDbl = ("double-" + loadFactor);
                     debug1(linHashtable2, dbHashtable2, inputType, total2);
                     dumpToFile(fileNameLin, linHashtable2);
                     dumpToFile(fileNameDbl, dbHashtable2);
+                } else if (debugLevel == 2) {
+
+                    for (int i = 0; i < linHashtable2.totalInserts; i++) {
+                        // make the while loop a function
+                    }
+
                 }
 
                 
@@ -140,12 +146,15 @@ public class HashtableTest {
                     debug0(linHashtable3, dbHashtable3, inputType, total3);
                 } else if (debugLevel == 1) {
                     
-                    String fileNameLin = ("linear-dump.txt");
-                    String fileNameDbl = ("double-dump.txt");
+                    String fileNameLin = ("linear-" + loadFactor);
+                    String fileNameDbl = ("double-" + loadFactor);
                     debug1(linHashtable3, dbHashtable3, inputType, total3);
                     dumpToFile(fileNameLin, linHashtable3);
                     dumpToFile(fileNameDbl, dbHashtable3);
+                } else if (debugLevel == 2) {
+                    // make the while loop a function
                 }
+
                 break;
 
             default:
