@@ -80,6 +80,11 @@ public abstract class Hashtable<T> {
     /*
      * Abstract method definition, implemented in both DoubleHashing.java
      *  and LinearProbing.java based on their respective hashing algorithms
+     * 
+     * @param - Object element
+     * @param - int probe
+     * 
+     * @return - int (the calculated hash of the key)
      */
     protected abstract int hash (Object element, int probe);
 

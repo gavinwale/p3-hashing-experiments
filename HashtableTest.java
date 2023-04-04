@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
-
 /*
  * This class contains the main method that runs the experiments on the hash tables
  *  that have been built. Based on command line arguments, the main method inserts

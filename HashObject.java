@@ -80,8 +80,6 @@ public class HashObject<T> {
 
     @Override
     public boolean equals(Object o) {
-        // if (o == this) return true;
-        // if (!(o instanceof HashObject)) return false;
         HashObject<T> o2 = (HashObject<T>)o;
         return o2.key.equals(this.key);
     }
