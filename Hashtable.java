@@ -9,6 +9,7 @@
 @SuppressWarnings("unchecked")
 public abstract class Hashtable<T> {
 
+    // Class variables, protected access for ease of use and for academia
     protected HashObject<T>[] table;
     protected int capacity;
     protected double loadFactor;
@@ -17,6 +18,12 @@ public abstract class Hashtable<T> {
     protected int totalProbes;
     protected int totalInserts;
 
+    /*
+     * Constructor for Hashtable
+     * 
+     * @param - int capacity (maximum size of hash table)
+     * @param - double loadFactor (how many slots can be filled)
+     */
     public Hashtable(int capacity, double loadFactor) {
         table = new HashObject[capacity];
         this.capacity = capacity;
@@ -27,91 +34,72 @@ public abstract class Hashtable<T> {
     }
 
     /*
-     * Inserts a generic HashObject into the hash table
+     * Inserts a generic key into the hash table
      * 
-     * @param - HashObject<T> key
+     * @param - T key
+     * @return - -1 if duplicate
+     * @return - 1 if original
      */
-    // public void insert(HashObject<T> key) {
-
-    //     // Probe starts at zero, is included in the hashing, increments when probed
-    //     int probe = 0;
-    //     // First index for the key to try to be inserted at
-    //     int index = hash(key, probe);
-
-    //     // We can probe as many times as there are slots in the hash table
-    //     while (probe < capacity) {
-
-    //         // If there is an empty slot in the hash table
-    //         if (table[index] == null) {
-    //             // Set the slot to the key
-    //             table[index] = key;
-    //             // Increment the number of true inserts
-    //             totalInserts++;
-    //             // Add the number of probes this took to the totalProbes variable
-    //             totalProbes += probe + 1;
-    //             // Set the probeCount of the element in the table at index
-    //             table[index].setProbeCount(probe + 1);
-    //             // Break out of the loop and method
-    //             return;
-
-    //         // If the slot in the hash table at index equals what we are trying to insert
-    //         } else if (table[index].equals(key)) {
-    //             // It is a duplicate, increment the total number of duplicates
-    //             totalDupes++;
-
-    //             totalProbes += probe + 1;
-
-    //             // Increment the duplicate count at the specific index
-    //             table[index].incrementDuplicateCount();
-    //             // Break out of the loop and method
-    //             return;
-    //         }
-
-    //         // If there is not an empty slot in the table or there is not a duplicate,
-    //         //  that means the slot is taken already and we must probe to find the next
-    //         //  available slot in the hash table.
-    //         probe++;
-    //     }
-    // }
-
-    /*
-     * Return -1 if duplicate
-     * Return 1 if original
-     */
-    protected void insert(T key) {
+    protected int insert(T key) {
         int probe = 0;
+        // Find the index by hashing with the key and current probe (0)
         int index = hash(key, probe);
+        // Java likes it if you make a new object first
         HashObject<T> insertObject = new HashObject<T>(key);
         while (table[index] != null) {
             if (table[index].equals(insertObject)) {
                 totalDupes++;
                 table[index].incrementDuplicateCount();
-                return;
+                return -1;
             } else if (!table[index].equals(insertObject)) {
-                //totalProbes++;
                 probe++;
                 // DECIDE BETWEEN THESE
                 table[index].incrementProbeCount();
                 insertObject.incrementProbeCount();
+                // Neither of them do anything important i guess :)
                 index = hash(key,probe);
             }
         }
+        // If the space is null, insert into empty spot
         table[index] = insertObject;
+        // Important incrementations
         totalInserts++;
         totalProbes += probe + 1;
-        return;
+        return 1;
     }
 
+    /*
+     * Get method for the total number of inserted objects
+     * 
+     * @return - total number of duplicates and original inserts
+     */
     protected int getTotalInserted() {
         return totalDupes + totalInserts;
     }
 
+    /*
+     * Abstract method definition, implemented in both DoubleHashing.java
+     *  and LinearProbing.java based on their respective hashing algorithms
+     */
     protected abstract int hash (Object element, int probe);
 
+    /*
+     * Get method for the current load factor
+     * 
+     * @return - the quotient of total original(non-duplicates) inserts and the capacity
+     */
     protected double getCurrentLoadFactor() {
         return (double) totalInserts / (double) capacity;
     }
 
+    /*
+     * Method to ensure modulus is positive
+     * 
+     * @param - int dividend
+     * @param - int divisor
+     * 
+     * @return - int quotient
+     */
     protected int positiveMod (int dividend, int divisor) {
         int quotient = dividend % divisor;
         if (quotient < 0) {
