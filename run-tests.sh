@@ -5,14 +5,6 @@ echo "Compiling the source code"
 echo
 javac *.java
 
-echo
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo "TODO:"
-echo "Please update this script to compare your output with provided output samples"
-echo "for word-list with load factors 0.5, 0.6, 0.7, 0.8, 0.9"
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo
-
 #put the following in a loop to test load factor of 0.5, 0.6, 0.7, 0.8 and 0.9 for word-list
 
 load=0.5

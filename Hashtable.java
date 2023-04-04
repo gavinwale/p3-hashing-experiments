@@ -58,6 +58,9 @@ public abstract class Hashtable<T> {
     //         } else if (table[index].equals(key)) {
     //             // It is a duplicate, increment the total number of duplicates
     //             totalDupes++;
+
+    //             totalProbes += probe + 1;
+
     //             // Increment the duplicate count at the specific index
     //             table[index].incrementDuplicateCount();
     //             // Break out of the loop and method
@@ -75,24 +78,28 @@ public abstract class Hashtable<T> {
      * Return -1 if duplicate
      * Return 1 if original
      */
-    protected int insert(HashObject<T> key) {
+    protected void insert(T key) {
         int probe = 0;
         int index = hash(key, probe);
+        HashObject<T> insertObject = new HashObject<T>(key);
         while (table[index] != null) {
-            if (table[index].equals(key)) {
+            if (table[index].equals(insertObject)) {
                 totalDupes++;
                 table[index].incrementDuplicateCount();
-                return -1;
-            } else if (!table[index].equals(key)) {
-                totalProbes++;
+                return;
+            } else if (!table[index].equals(insertObject)) {
+                //totalProbes++;
                 probe++;
+                // DECIDE BETWEEN THESE
                 table[index].incrementProbeCount();
+                insertObject.incrementProbeCount();
                 index = hash(key,probe);
             }
         }
-        table[index] = new HashObject(key);
+        table[index] = insertObject;
         totalInserts++;
-        return 1;
+        totalProbes += probe + 1;
+        return;
     }
 
     protected int getTotalInserted() {
